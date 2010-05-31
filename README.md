@@ -1,5 +1,23 @@
 Linux Last.fm proxy service over DBus
 
+DBus
+====
+
+The input signal is defined as:
+
+* interface: 'com.jldupont.lastfm.proxy'
+* path: Records
+* signal name: qRecord
+  * ts_start: (integer)  start timestamp
+  * limit: (integer)  maximum number of records to retrieve
+  
+The resulting output signal is defined as:
+
+* interface: 'com.jldupont.lastfm.proxy'
+* path: Records
+* signal name: Records
+  * list of dict, signature: aa{sv}
+ 
 
 Installation
 ============

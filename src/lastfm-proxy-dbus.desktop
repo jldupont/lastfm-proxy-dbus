@@ -1,0 +1,7 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Proxy service over DBus for Last.Fm 'user recent tracks' journal
+Comment=See http://www.systemical.com/
+Exec=lastfm-proxy-dbus
+Icon=lastfm-proxy-dbus
