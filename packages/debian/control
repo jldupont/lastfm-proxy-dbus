@@ -1,0 +1,14 @@
+Source: lastfm-proxy-dbus
+Priority: optional
+Section: devel
+Build-Depends: python (>= 2.5), debhelper (>= 7), python-support (>= 0.5.3), python-setuptools
+Standards-Version: 3.8.0
+Maintainer: Jean-Lou Dupont <jl@jldupont.com>
+Homepage: http://www.systemical.com/
+
+Package: lastfm-proxy-dbus
+Architecture: all
+Depends: python (>= 2.5), ${misc:Depends}, ${python:Depends}
+Description: Proxy service over Dbus for Last.fm.
+ For more details, please see http://github.com/jldupont/lastfm-proxy-dbus
+ .
