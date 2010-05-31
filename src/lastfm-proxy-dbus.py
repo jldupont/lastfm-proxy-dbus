@@ -79,7 +79,7 @@ class App(Frame):
         self.uniqueTracksCountEntry.grid(row=5, column=1)
 
         
-        self.master.title("Last.fm Sqlite Sync")
+        self.master.title("Last.fm Proxy DBus")
         
         self.master.protocol("WM_DELETE_WINDOW", self.OnQuit)
         
@@ -195,7 +195,7 @@ import app.agents.jwalker   #@UnusedImport
 import app.agents.updater   #@UnusedImport
 import app.agents.informer  #@UnusedImport
 import app.agents.tracker   #@UnusedImport
-import app.agents.adbus      #@UnusedImport
+import app.agents.adbus     #@UnusedImport
 
 app=App()
 app.main()
