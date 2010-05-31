@@ -12,9 +12,9 @@ __all__=["getDbPath", "UserTracksDb"]
 
 def getDbPath():
     if isOSX():
-        path="~/Library/Preferences/lastfmsqlite.sqlite"
+        path="~/Library/Preferences/lastfm-proxy-dbus.sqlite"
     else:
-        path="~/.config/lastfmsqlite.sqlite"
+        path="~/.config/lastfm-proxy-dbus.sqlite"
 
     return os.path.expanduser(path)
 

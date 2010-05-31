@@ -11,13 +11,13 @@ from app.system.tbase    import AgentThreadedBase
 __all__=[]
 
 def getLogPath():
-    path="~/lastfmsqlite.log"
+    path="~/lastfm-proxy-dbus.log"
     return os.path.expanduser(path)
 
 
 class LoggerAgent(AgentThreadedBase):
 
-    NAME="lastfmsqlite"
+    NAME="lastfm-proxy-dbus"
     
     mlevel={"info":     logging.INFO
             ,"warning": logging.WARNING
