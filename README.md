@@ -16,8 +16,26 @@ The resulting output signal is defined as:
 * interface: 'com.jldupont.lastfm.proxy'
 * path: Records
 * signal name: Records
-  * list of dict, signature: aa{sv}
+  * list of dict with 'entries', signature: aa{sv}
  
+
+Entry
+-----
+
+The following fields are available:
+
+	-"id"
+	- "created"
+	- "updated"
+	- "playcount"
+	- "track_name"
+	- "track_mbid"
+	- "artist_name"
+	- "artist_mbid"
+	- "album_name"
+	- "album_mbid"
+
+
 
 Installation
 ============
