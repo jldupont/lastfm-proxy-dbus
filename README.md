@@ -24,16 +24,16 @@ Entry
 
 The following fields are available:
 
-	- "id"
-	- "created"
-	- "updated"
-	- "playcount"
-	- "track_name"
-	- "track_mbid"
-	- "artist_name"
-	- "artist_mbid"
-	- "album_name"
-	- "album_mbid"
+ - "id"
+ - "created"
+ - "updated"
+ - "playcount"
+ - "track_name"
+ - "track_mbid"
+ - "artist_name"
+ - "artist_mbid"
+ - "album_name"
+ - "album_mbid"
 
 
 
