@@ -24,7 +24,7 @@ Entry
 
 The following fields are available:
 
-	-"id"
+	- "id"
 	- "created"
 	- "updated"
 	- "playcount"
