@@ -1,4 +1,20 @@
 """
+    Informer Agents
+    
+    Each Informer retrieves information related to a specific track
+    using the "track.getinfo" method from the web service
+    
+    Messages In:
+    ------------
+    - "username"
+    - "track_batch"
+    
+    
+    Messages Out:
+    ------------
+    - "track_info"
+
+    
     @author: jldupont
     @date: May 20, 2010
 """
@@ -62,6 +78,9 @@ class InformerAgent(AgentThreadedBase):
                 
             
     def isMine(self, ts):
+        """
+        Pick which Informer gets this job
+        """
         even=ts % 2
         if self.even and even==0:
             return True

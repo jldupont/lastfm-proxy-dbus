@@ -1,6 +1,11 @@
 """
     DBus Agent
     
+    - Receives requests signals
+    - Sends reply signals
+    
+    - Sends "low priority" signals to Musicbrainz-Proxy-Dbus
+    
     @author: jldupont
     @date: May 21, 2010
 """
@@ -14,6 +19,20 @@ __all__=[]
 
 
 if isLinux():
+    class MusicbrainzProxy(dbus.service.Object):
+        
+        PATH="/Tracks"
+        
+        def __init__(self):
+            dbus.service.Object.__init__(self, dbus.SessionBus(), self.PATH)
+
+        @dbus.service.signal(dbus_interface="com.jldupont.musicbrainz.proxy", signature="vvvv")
+        def qTrack(self, _ref, _artist_name, _track_name, _priority):
+            """
+            Signal Emitter - qTrack
+            """
+        
+    
     class SignalRx(dbus.service.Object):
         """
         DBus signals for the /Player path
@@ -104,6 +123,20 @@ if isLinux():
             AgentThreadedBase.__init__(self)
 
             self.srx=SignalRx()
+            self.mb=MusicbrainzProxy()
+            
+        def h_track_details(self, artist_name, track_name, _album_name):
+            self.mb.qTrack("lastfm_proxy", artist_name, track_name, "low")
+            
+        def h_track_info(self, track):
+            """
+            Pass along the [artist:track] to Musicbrainz Proxy
+            to help it learn the associations
+            """
+            artist_name=track.get("artist.name", "")
+            track_name=track.get("name", "")
+            self.mb.qTrack("lastfm_proxy", artist_name, track_name, "low")
+            
             
         def h_shutdown(self):
             print "ADBus - shutdown"

@@ -46,4 +46,9 @@ There are 2 methods:
 2. Use the "Download Source" function of this git repo and use "sudo make install"
 
  
+History
+=======
+
+ - v1.1: added signal to Musicbrainz-proxy-dbus 
+ 
 [Home](http://www.systemical.com/ "Home")

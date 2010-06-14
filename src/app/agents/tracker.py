@@ -3,6 +3,17 @@
     
     Maintains the 'unique tracks' table
 
+    Messages In:
+    ------------
+    - "tick"
+    - "track_info"
+    
+    Messages Out:
+    ------------
+    - "unique_track"
+    - "uniqueTracksCount"
+    
+
     @author: jldupont
     @date: May 21, 2010
 """

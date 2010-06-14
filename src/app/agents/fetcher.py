@@ -1,6 +1,19 @@
 """
     Fetcher Agent
     
+    Messages In:
+    ------------
+    - "username"
+    - "tick"
+    - "page?"
+    
+    
+    Messages Out:
+    ------------
+    - "page_details"
+    - "tracks"
+    
+    
     @author: Jean-Lou Dupont
     @date: 17 May 2010
 """

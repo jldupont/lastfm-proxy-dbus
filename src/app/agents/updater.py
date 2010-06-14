@@ -1,4 +1,17 @@
 """
+    Updater Agent
+    
+    Messages In:
+    ------------
+    - "tick"
+    - "track_info"
+    
+    Messages Out:
+    ------------
+    - "track_to_update"
+    - "track_batch"
+    - "toUpdateCount"
+    
     @author: jldupont
     @date: May 20, 2010
 """

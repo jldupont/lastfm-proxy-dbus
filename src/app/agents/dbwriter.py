@@ -1,4 +1,17 @@
 """
+    DbWriter
+
+    Messages In:
+    -------------
+    - "track_to_update"
+    - "tracks"
+    - "unique_track"
+    
+    
+    Messages Out:
+    -------------
+    - "track_details"
+
     @author: jldupont
     @date: May 20, 2010
 """
@@ -88,6 +101,9 @@ class DbWriter(AgentThreadedBase):
             album_name=track["album"]
             try:    album_mbid=track["album.attrs"]["mbid"]
             except: album_mbid=""
+            
+            ## to help the bridge to Musicbrainz-proxy
+            self.pub("track_details", artist_name, track_name, album_name)
             
             try:
                 new=self.db.insertIfNotExist(ts, -1, 

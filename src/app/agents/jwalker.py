@@ -4,6 +4,18 @@
     Goes through the user's Last.fm 
     'user.recenttracks' journal
     
+    Messages In:
+    ------------
+    - "new_ts"
+    - "page_details"
+    
+    Messages Out:
+    -------------
+    - "page?"
+    - "totalDbTracks"
+    - "numPages"
+    
+    
     @author: jldupont
     @date: May 20, 2010
 """
