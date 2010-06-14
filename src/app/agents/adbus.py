@@ -119,6 +119,8 @@ if isLinux():
             try:    records=self.db.getRecordsLatest(ts, l)
             except: records=None
             
+            #print records
+            
             rs=self.formatRecordSet(records)
             self.RecordsLatest(rs)
             

@@ -264,7 +264,7 @@ class UserTracksDb(object):
         limit=min(limit, 100)
         
         try:
-            self.c.execute("""SELECT * FROM utracks WHERE (updated>=?) ORDER BY updated DESC LIMIT ?""", (ts_start, limit))
+            self.c.execute("""SELECT * FROM utracks WHERE (updated<=?) ORDER BY updated DESC LIMIT ?""", (ts_start, limit))
             items=self.c.fetchall()
         except Exception, _e:
             items=None
