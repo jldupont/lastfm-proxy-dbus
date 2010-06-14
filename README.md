@@ -3,19 +3,30 @@ Linux Last.fm proxy service over DBus
 DBus
 ====
 
-The input signal is defined as:
+The input signals are defined as:
 
 * interface: 'com.jldupont.lastfm.proxy'
 * path: Records
-* signal name: qRecord
+* signal name: qRecords
+  * ts_start: (integer)  start timestamp
+  * limit: (integer)  maximum number of records to retrieve
+
+* interface: 'com.jldupont.lastfm.proxy'
+* path: Records
+* signal name: qRecordsLatest
   * ts_start: (integer)  start timestamp
   * limit: (integer)  maximum number of records to retrieve
   
-The resulting output signal is defined as:
+The resulting output signal are defined as:
 
 * interface: 'com.jldupont.lastfm.proxy'
 * path: Records
 * signal name: Records
+  * list of dict with 'entries', signature: aa{sv}
+
+* interface: 'com.jldupont.lastfm.proxy'
+* path: Records
+* signal name: RecordsLatest
   * list of dict with 'entries', signature: aa{sv}
  
 
@@ -50,5 +61,6 @@ History
 =======
 
  - v1.1: added signal to Musicbrainz-proxy-dbus 
+ - v1.2: added signal "qRecordsLatest" and output result "RecordsLatest"
  
 [Home](http://www.systemical.com/ "Home")

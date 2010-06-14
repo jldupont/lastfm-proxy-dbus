@@ -257,6 +257,21 @@ class UserTracksDb(object):
              
         return items   
 
+    def getRecordsLatest(self, ts_start, limit=100):
+        if limit < 0:
+            limit = 10
+        
+        limit=min(limit, 100)
+        
+        try:
+            self.c.execute("""SELECT * FROM utracks WHERE (updated>=?) ORDER BY updated DESC LIMIT ?""", (ts_start, limit))
+            items=self.c.fetchall()
+        except Exception, _e:
+            items=None
+             
+        return items   
+        
+
     
 if __name__=="__main__":
     d=UserTracksDb()

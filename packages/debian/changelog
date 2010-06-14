@@ -1,5 +1,5 @@
-lastfm-proxy-dbus (_VERSION_-3jldupont1~_DIST_1)  _DIST_; urgency=low
+lastfm-proxy-dbus (_VERSION_-1jldupont1~_DIST_1)  _DIST_; urgency=low
 
-  * initial release (modified app window title)
+  * v1.2
  
- -- Jean-Lou Dupont <jl@jldupont.com>  Sun, 30 May 2010 07:17:00 -0500
+ -- Jean-Lou Dupont <jl@jldupont.com>  Sun, 13 June 2010 07:17:00 -0500

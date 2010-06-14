@@ -49,9 +49,24 @@ if isLinux():
                                            bus_name=None,
                                            path="/Records"
                                            )            
+
+            dbus.Bus().add_signal_receiver(self.sQRecordsLatest,
+                                           signal_name="qRecordsLatest",
+                                           dbus_interface="com.jldupont.lastfm.proxy",
+                                           bus_name=None,
+                                           path="/Records"
+                                           )            
     
         @dbus.service.signal(dbus_interface="com.jldupont.lastfm.proxy", signature="aa{sv}")
         def Records(self, list_dic):
+            """
+            Result 'output' signal
+            
+            A list of dictionaries i.e. array of array of {string:variant} entries
+            """
+
+        @dbus.service.signal(dbus_interface="com.jldupont.lastfm.proxy", signature="aa{sv}")
+        def RecordsLatest(self, list_dic):
             """
             Result 'output' signal
             
@@ -82,6 +97,30 @@ if isLinux():
             
             rs=self.formatRecordSet(records)
             self.Records(rs)
+
+        def sQRecordsLatest(self, ts_start, limit):
+            """
+            DBus signal handler - /Records/qRecordsLatest
+            
+            @todo: more user friendly error reporting...
+            """
+            try:     ts=int(ts_start)
+            except:  
+                print "** expecting integer 'ts_start'"
+                return
+            
+            try:     l=int(limit)
+            except:  
+                print "** expecting integer 'limit'"
+                return
+            
+            #print "sQRecords: ts_start: %s -- limit: %s" % (ts_start, limit)
+            self.setup()
+            try:    records=self.db.getRecordsLatest(ts, l)
+            except: records=None
+            
+            rs=self.formatRecordSet(records)
+            self.RecordsLatest(rs)
             
         def formatRecordSet(self, records):
             rs=[]
