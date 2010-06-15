@@ -85,13 +85,13 @@ class UserTracksDb(object):
                          track_mbid, artist_mbid, album_mbid,
                          track_name, artist_name, album_name ))
         
-        
+        ## v1.4: updated=now
         if self.c.rowcount != 1:
             self.c.execute("""INSERT INTO utracks (created, updated, playcount, 
                             track_name, track_mbid,
                             artist_name, artist_mbid,
                             album_name, album_mbid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""", 
-                            (now, 0, playcount, track_name, track_mbid,
+                            (now, now, playcount, track_name, track_mbid,
                             artist_name, artist_mbid,
                             album_name, album_mbid) )
             new=True

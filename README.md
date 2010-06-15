@@ -63,5 +63,6 @@ History
  - v1.1: added signal to Musicbrainz-proxy-dbus 
  - v1.2: added signal "qRecordsLatest" and output result "RecordsLatest"
  - v1.3: fixed bug with "qRecordsLatest" processing
+ - v1.4: new created records are set with "updated=now()"
  
 [Home](http://www.systemical.com/ "Home")
