@@ -66,12 +66,12 @@ class UpdaterAgent(AgentThreadedBase):
             self.pub("log", "Updater - # tracks to update: %s" % str(total))
         
     def h_track_info(self, track_info):
+        track=track_info["name"]
+        artist=track_info["artist.name"]        
         try:
             playcount=int(track_info["userplaycount"])
-            track=track_info["name"]
-            artist=track_info["artist.name"]
         except Exception,e:
-            self.pub("log", "warning", "Updater - track_info with missing field(%s)" % e)
+            self.pub("log", "warning", "Updater - track_info with missing field(%s), artist(%s) track(%s)" % (e, artist, track))
             return
             
         ts=int(time.time())

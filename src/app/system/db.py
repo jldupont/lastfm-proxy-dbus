@@ -76,14 +76,11 @@ class UserTracksDb(object):
         new=False
         now=time.time()        
 
-        self.c.execute("""UPDATE utracks SET playcount=?, updated=?,
-                                track_mbid=?, artist_mbid=?, album_mbid=?
+        self.c.execute("""UPDATE utracks SET playcount=?, updated=?
                             WHERE track_name=? AND 
-                                artist_name=? AND 
-                                album_name=?""", 
+                                artist_name=?""", 
                         (playcount, now,
-                         track_mbid, artist_mbid, album_mbid,
-                         track_name, artist_name, album_name ))
+                         track_name, artist_name ))
         
         ## v1.4: updated=now
         if self.c.rowcount != 1:

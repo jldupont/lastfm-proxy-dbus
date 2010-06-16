@@ -45,7 +45,6 @@ class DbWriter(AgentThreadedBase):
         self._setup()
         if self.db is None:
             return
-        
         try:
             count=self.db.updateOne(ts, track, artist, playcount)
         except Exception,e:
@@ -53,6 +52,14 @@ class DbWriter(AgentThreadedBase):
             return
         
         self.pub("updated", (artist, track, playcount, count))
+            
+        try:
+            count=self.db.UniqueTracks_InsertIfNotExists(playcount, track, "", artist, "", "", "")
+            self.pub("log", "Updated artist(%s) track(%s) playcount(%s)" % (artist, track, playcount))
+        except Exception,e:
+            self.pub("errorDbWriting", "DbWriter - "+str(e))
+            return
+        
         
     def h_unique_track(self, artist_name, track_name, record):
         #print "DbWriter: unique_track: %s - %s" % (artist_name, track_name)

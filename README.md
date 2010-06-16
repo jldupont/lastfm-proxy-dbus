@@ -64,5 +64,6 @@ History
  - v1.2: added signal "qRecordsLatest" and output result "RecordsLatest"
  - v1.3: fixed bug with "qRecordsLatest" processing
  - v1.4: new created records are set with "updated=now()"
+ - v1.5: enhanced reporting of "unique tracks" with associated "playcount"
  
 [Home](http://www.systemical.com/ "Home")
