@@ -97,7 +97,7 @@ class UserTracksDb(object):
         return new
 
 
-    def insertIfNotExist(self, ts, playcount,
+    def insertIfNotExist(self, ts, 
                          track_name, track_mbid,
                          artist_name, artist_mbid,
                          album_name, album_mbid):
@@ -112,10 +112,10 @@ class UserTracksDb(object):
 
         self.c.execute("""UPDATE tracks SET track_name=?, track_mbid=?,
                         artist_name=?, artist_mbid=?,
-                        album_name=?, album_mbid=?, playcount=?, updated=? WHERE ts=?""", 
+                        album_name=?, album_mbid=?, updated=? WHERE ts=?""", 
                         (track_name, track_mbid,
                         artist_name, artist_mbid,
-                        album_name, album_mbid, playcount, now,
+                        album_name, album_mbid, now,
                         ts))
         
         
@@ -124,7 +124,7 @@ class UserTracksDb(object):
                             track_name, track_mbid,
                             artist_name, artist_mbid,
                             album_name, album_mbid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""", 
-                            (ts, now, 0, playcount, track_name, track_mbid,
+                            (ts, now, 0, -1, track_name, track_mbid,
                             artist_name, artist_mbid,
                             album_name, album_mbid) )
             new=True
@@ -217,10 +217,15 @@ class UserTracksDb(object):
         """
         try:
             self.c.execute("""SELECT Count(*) FROM tracks WHERE updated=0""")    
-            count=self.c.fetchone()[0]
-        except: count=0
+            count1=self.c.fetchone()[0]
+        except: count1=0
+
+        try:
+            self.c.execute("""SELECT Count(*) FROM tracks WHERE playcount<=0""")    
+            count2=self.c.fetchone()[0]
+        except: count2=0
         
-        return count
+        return count1+count2
 
         
     def findNextToUpdate(self, limit=20):
@@ -232,6 +237,13 @@ class UserTracksDb(object):
             item=self.c.fetchall()
         except Exception,_e:
             item=None
+
+        if item is None or len(item)==0:
+            try:
+                self.c.execute("""SELECT * FROM tracks WHERE playcount<=0 LIMIT ?""", (limit,))
+                item=self.c.fetchall()
+            except Exception,_e:
+                item=None
             
         return item
     

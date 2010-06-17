@@ -113,7 +113,7 @@ class DbWriter(AgentThreadedBase):
             self.pub("track_details", artist_name, track_name, album_name)
             
             try:
-                new=self.db.insertIfNotExist(ts, -1, 
+                new=self.db.insertIfNotExist(ts,  
                                      track_name, track_mbid, 
                                      artist_name, artist_mbid, 
                                      album_name, album_mbid)

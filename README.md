@@ -65,5 +65,6 @@ History
  - v1.3: fixed bug with "qRecordsLatest" processing
  - v1.4: new created records are set with "updated=now()"
  - v1.5: enhanced reporting of "unique tracks" with associated "playcount"
+ - v1.6: enhanced scanning for tracks in need of update
  
 [Home](http://www.systemical.com/ "Home")
