@@ -8,7 +8,7 @@ Homepage: http://www.systemical.com/
 
 Package: lastfm-proxy-dbus
 Architecture: all
-Depends: python (>= 2.5), ${misc:Depends}, ${python:Depends}
+Depends: python (>= 2.5), python-tk (>=2.6.3), ${misc:Depends}, ${python:Depends}
 Description: Proxy service over Dbus for Last.fm.
  For more details, please see http://github.com/jldupont/lastfm-proxy-dbus
  .

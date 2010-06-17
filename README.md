@@ -66,5 +66,6 @@ History
  - v1.4: new created records are set with "updated=now()"
  - v1.5: enhanced reporting of "unique tracks" with associated "playcount"
  - v1.6: enhanced scanning for tracks in need of update
+ - v1.61: corrected debian packaging to include needed "python-tk" package
  
 [Home](http://www.systemical.com/ "Home")
