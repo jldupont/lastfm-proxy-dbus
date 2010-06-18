@@ -67,6 +67,6 @@ History
  - v1.5: enhanced reporting of "unique tracks" with associated "playcount"
  - v1.6: enhanced scanning for tracks in need of update
  - v1.61: corrected debian packaging to include needed "python-tk" package
- - v1.7: significant speed-up: message switch with priority & burst limiting
+ - v1.70: significant speed-up: message switch with priority & burst limiting
  
 [Home](http://www.systemical.com/ "Home")
