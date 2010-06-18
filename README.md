@@ -68,5 +68,6 @@ History
  - v1.6: enhanced scanning for tracks in need of update
  - v1.61: corrected debian packaging to include needed "python-tk" package
  - v1.70: significant speed-up: message switch with priority & burst limiting
+ - v1.71: additional speed-up: tweaked GUI main message loop
  
 [Home](http://www.systemical.com/ "Home")

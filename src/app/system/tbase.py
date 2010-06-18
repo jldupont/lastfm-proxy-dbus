@@ -1,8 +1,13 @@
 """
+    Base class for threaded Agents
     
+    * high/low priority message queues
+    * message bursting controlled
+    * message dispatching based on Agent 'interest'
     
     @author: jldupont
     @date: May 17, 2010
+    @revised: June 18, 2010
 """
 
 from threading import Thread
@@ -26,10 +31,10 @@ def mdispatch(obj, obj_orig, envelope):
     
     ## Avoid sending to self
     if orig == obj_orig:
-        return (False, None)
+        return (False, mtype, None)
 
     if mtype=="__quit__":
-        return (True, None)
+        return (True, mtype, None)
 
     handled=False
 
@@ -52,7 +57,7 @@ def mdispatch(obj, obj_orig, envelope):
         if debug:
             print "! No handler for message-type: %s" % mtype
     
-    return (False, handled)
+    return (False, mtype, handled)
 
 
 class AgentThreadedBase(Thread):
@@ -115,7 +120,7 @@ class AgentThreadedBase(Thread):
         if interested==False:
             return False
         
-        quit, handled=mdispatch(self, self.id, envelope)
+        quit, _mtype, handled=mdispatch(self, self.id, envelope)
         if quit:
             shutdown_handler=getattr(self, "h_shutdown", None)
             if shutdown_handler is not None:

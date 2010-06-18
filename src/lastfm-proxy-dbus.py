@@ -146,17 +146,27 @@ class App(Frame):
         #print "tick (%s)" % time.time()
         self._manageUserMessage()
         
-        try:
-            envelope=self.isq.get(block=False)
-            mdispatch(self, "__main__", envelope)
-        except Empty:
-            pass
-        
-        try:
-            envelope=self.iq.get(block=False)
-            mdispatch(self, "__main__", envelope)
-        except Empty:
-            pass
+        while True:
+            try:
+                envelope=self.isq.get(block=False)
+                quit, mtype, handled=mdispatch(self, "__main__", envelope)
+                if handled==False:
+                    mswitch.publish(self.__class__, "__interest__", (mtype, False, self.isq))               
+            except Empty:
+                break
+            
+        burst=5
+        while True:
+            try:
+                envelope=self.iq.get(block=False)
+                quit, mtype, handled=mdispatch(self, "__main__", envelope)
+                if handled==False:
+                    mswitch.publish(self.__class__, "__interest__", (mtype, False, self.iq))
+                burst -= 1
+                if burst==0:
+                    break
+            except Empty:
+                break
 
         self.count += 1
         mswitch.publish("__main__", "tick", self.count)
