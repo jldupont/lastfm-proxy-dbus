@@ -4,6 +4,10 @@
     Goes through the user's Last.fm 
     'user.recenttracks' journal
     
+    The process is kickstarted by the Fetcher agent by
+    the action of fetching a 'recent tracks' history page.
+    As a result, 'page_details' and 'tracks' message are generated.
+    
     Messages In:
     ------------
     - "new_ts"

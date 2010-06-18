@@ -26,14 +26,14 @@ from app.lastfmparsers.user_getrecenttracks import parse
 __all__=[]
 
 ## 100ms / tick
-INTERVAL_TICKS=10*60*15
+INTERVAL_TICKS=4*60*5
 
 
 class FetcherAgent(AgentThreadedBase):
     """
     User.RecentTracks
     """
-    TIMEOUT = 10
+    TIMEOUT = 4
     USER_RECENTTRACKS_URL="http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=%s&page=%s&limit=200&api_key="
     API_KEY="50fa3794354dd9d42fc251416f523388"
     

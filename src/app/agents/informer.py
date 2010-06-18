@@ -110,7 +110,7 @@ class InformerAgent(AgentThreadedBase):
         return self.url % (ea, et, ua)
         
     def do_fetch(self, track, artist):
-        
+        #print "Informer.do_fetch: artist(%s) track(%s)" % (artist, track)
         url=self.genUrl(track, artist)
         
         try:

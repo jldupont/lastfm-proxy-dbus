@@ -25,7 +25,7 @@ __all__=[]
 
 class UpdaterAgent(AgentThreadedBase):
     
-    INTERVAL=10*15
+    INTERVAL=4*15
     
     def __init__(self):
         """
@@ -68,6 +68,8 @@ class UpdaterAgent(AgentThreadedBase):
     def h_track_info(self, track_info):
         track=track_info["name"]
         artist=track_info["artist.name"]        
+        
+        #print "updater.track_info: artist(%s) track(%s)" % (artist, track)
         try:
             playcount=int(track_info["userplaycount"])
         except Exception,e:

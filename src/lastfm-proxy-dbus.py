@@ -4,16 +4,21 @@
 """
 import os
 import sys
+import time
+import gobject
+import dbus.glib
+from dbus.mainloop.glib import DBusGMainLoop
+
+DBusGMainLoop(set_as_default=True)
+
+gobject.threads_init()
+dbus.glib.init_threads()
 
 ## For development environment
 ppkg=os.path.abspath( os.getcwd() +"/app")
 if os.path.exists(ppkg):
     sys.path.insert(0, ppkg)
 
-
-from dbus.mainloop.glib import DBusGMainLoop
-DBusGMainLoop(set_as_default=True)
-import gobject
 
 from Tkinter import * #@UnusedWildImport
 from Queue import Queue, Empty
@@ -33,6 +38,7 @@ class App(Frame):
         self.quitting=False
         
         self.iq=Queue()
+        self.isq=Queue()
         self.count=0
         
         self.grid()
@@ -137,17 +143,20 @@ class App(Frame):
         
     ## ==============================================================
     def tick(self):
+        #print "tick (%s)" % time.time()
         self._manageUserMessage()
         
-        while True:
-            try:     
-                if self.quitting:
-                    break
-                envelope=self.iq.get(False)
-                mdispatch(self, "__main__", envelope)
-            except Empty:
-                break
-
+        try:
+            envelope=self.isq.get(block=False)
+            mdispatch(self, "__main__", envelope)
+        except Empty:
+            pass
+        
+        try:
+            envelope=self.iq.get(block=False)
+            mdispatch(self, "__main__", envelope)
+        except Empty:
+            pass
 
         self.count += 1
         mswitch.publish("__main__", "tick", self.count)
@@ -155,10 +164,7 @@ class App(Frame):
         if self.quitting:
             self.quit()
             self.loop.quit()
-            return
         
-        ## 100milliseconds    
-        self.after(100, self.tick)
               
     def h_numPages(self, numPages):
         pass
@@ -179,7 +185,7 @@ class App(Frame):
         """
         Run main application window
         """ 
-        mswitch.subscribe(self.iq)
+        mswitch.subscribe(self.iq, self.isq)
         
         self.tick()
         #self.mainloop()
@@ -201,10 +207,11 @@ app=App()
 app.main()
     
 def refreshTkinter():
+    app.tick()
     app.update()
     return True
     
-gobject.idle_add(refreshTkinter)
+gobject.timeout_add(250, refreshTkinter)
 loop = gobject.MainLoop()
 
 app.setLoop(loop)
