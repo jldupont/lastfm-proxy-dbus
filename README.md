@@ -70,5 +70,6 @@ History
  - v1.70: significant speed-up: message switch with priority & burst limiting
  - v1.71: additional speed-up: tweaked GUI main message loop
  - v1.72: fixed shutdown process
+ - v1.73: minor fix in AgentThreadedBase
  
 [Home](http://www.systemical.com/ "Home")

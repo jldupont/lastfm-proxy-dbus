@@ -134,7 +134,8 @@ class AgentThreadedBase(Thread):
             if shutdown_handler is not None:
                 shutdown_handler()
 
-        self.mmap[mtype]=handled
+        if handled is not None:
+            self.mmap[mtype]=handled
             
         ### signal this Agent's interest status (True/False)
         ### to the central message switch
