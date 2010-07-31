@@ -71,5 +71,6 @@ History
  - v1.71: additional speed-up: tweaked GUI main message loop
  - v1.72: fixed shutdown process
  - v1.73: minor fix in AgentThreadedBase
+ - v1.74: fixed issue with missing "userplaycount" field during update phase
  
 [Home](http://www.systemical.com/ "Home")

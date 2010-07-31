@@ -74,7 +74,7 @@ class UpdaterAgent(AgentThreadedBase):
             playcount=int(track_info["userplaycount"])
         except Exception,e:
             self.pub("log", "warning", "Updater - track_info with missing field(%s), artist(%s) track(%s)" % (e, artist, track))
-            return
+            playcount=0
             
         ts=int(time.time())
         self.pub("track_to_update", ts, track, artist, playcount)
