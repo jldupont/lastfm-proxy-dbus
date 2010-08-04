@@ -240,7 +240,7 @@ class UserTracksDb(object):
 
         if item is None or len(item)==0:
             try:
-                self.c.execute("""SELECT * FROM tracks WHERE playcount<=0 LIMIT ?""", (limit,))
+                self.c.execute("""SELECT * FROM tracks WHERE playcount<0 LIMIT ?""", (limit,))
                 item=self.c.fetchall()
             except Exception,_e:
                 item=None

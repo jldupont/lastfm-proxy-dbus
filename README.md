@@ -72,5 +72,6 @@ History
  - v1.72: fixed shutdown process
  - v1.73: minor fix in AgentThreadedBase
  - v1.74: fixed issue with missing "userplaycount" field during update phase
+ - v1.75: fixed issue with "userplaycount==0" field
  
 [Home](http://www.systemical.com/ "Home")
