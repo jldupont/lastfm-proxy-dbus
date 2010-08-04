@@ -221,7 +221,7 @@ class UserTracksDb(object):
         except: count1=0
 
         try:
-            self.c.execute("""SELECT Count(*) FROM tracks WHERE playcount<=0""")    
+            self.c.execute("""SELECT Count(*) FROM tracks WHERE playcount<0""")    
             count2=self.c.fetchone()[0]
         except: count2=0
         
