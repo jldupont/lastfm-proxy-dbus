@@ -2,6 +2,17 @@
     @date: May 14, 2010
     @author: jldupont
 """
+APP_NAME="lastfm-proxy-dbus"
+APP_ICON = "lastfm-proxy-dbus"
+ICON_PATH="/usr/share/icons/"
+ICON_FILE=APP_NAME+".png"
+LOG_PATH="~/"+APP_NAME+".log"
+DB_PATH ="~/"+APP_NAME+".sqlite"
+HELP_URL="http://www.systemical.com/doc/opensource/"+APP_NAME
+TIME_BASE=250  ##milliseconds
+TICKS_SECOND=1000/TIME_BASE
+
+
 import os
 import sys
 import time
@@ -86,7 +97,7 @@ class App(Frame):
         
         self.master.title("Last.fm Proxy DBus")
         
-        self.master.protocol("WM_DELETE_WINDOW", self.OnQuit)
+        self.master.protocol("WM_DELETE_WINDOW", self.OnHide)
         
         self.userMsgTimeout=0
         
@@ -94,11 +105,8 @@ class App(Frame):
     def setLoop(self, loop):
         self.loop=loop
     
-    def OnQuit(self):
+    def OnHide(self):
         self.winfo_toplevel().withdraw()
-        mswitch.publish(None, "__quit__", None)
-        self.quitting=True
-
         
     def setUserMessage(self, str):
         """
@@ -118,6 +126,13 @@ class App(Frame):
             self.userMsgTimeout -= 1
              
     ## ==============================================================
+    def h_app_show(self, *_):
+        self.winfo_toplevel().deiconify()
+        
+    def on_destroy(self):
+        mswitch.publish(None, "__quit__", None)
+        self.quitting=True
+        
     def h_default(self, msg, *p, **k):
         ##print "h_default: msg: %s" % str(msg)
         pass
@@ -150,7 +165,9 @@ class App(Frame):
                 envelope=self.isq.get(block=False)
                 quit, mtype, handled=mdispatch(self, "__main__", envelope)
                 if handled==False:
-                    mswitch.publish(self.__class__, "__interest__", (mtype, False, self.isq))               
+                    mswitch.publish(self.__class__, "__interest__", (mtype, False, self.isq)) 
+                if quit:
+                    self.on_destroy()
             except Empty:
                 break
             
@@ -161,6 +178,8 @@ class App(Frame):
                 quit, mtype, handled=mdispatch(self, "__main__", envelope)
                 if handled==False:
                     mswitch.publish(self.__class__, "__interest__", (mtype, False, self.iq))
+                if quit:
+                    self.on_destroy()                    
                 burst -= 1
                 if burst==0:
                     break
@@ -201,6 +220,9 @@ class App(Frame):
         
 
 ## -------------------------------------------------------------------
+
+from app.agents.tray import TrayAgent
+_ta=TrayAgent(APP_NAME, ICON_PATH, ICON_FILE)
 
 import app.agents.logger    #@UnusedImport        
 import app.agents.fetcher   #@UnusedImport
