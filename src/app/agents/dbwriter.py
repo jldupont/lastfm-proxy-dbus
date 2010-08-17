@@ -38,8 +38,6 @@ class DbWriter(AgentThreadedBase):
         try:    self.db.close()
         except: pass
         
-        print "DbWriter - shutdown"
-        
     def h_track_to_update(self, ts, track, artist, playcount):
 
         self._setup()

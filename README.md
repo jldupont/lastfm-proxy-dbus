@@ -73,5 +73,6 @@ History
  - v1.73: minor fix in AgentThreadedBase
  - v1.74: fixed issue with missing "userplaycount" field during update phase
  - v1.76: fixed issue with "userplaycount==0" field
+ - v1.80: added help button and tray icon
  
 [Home](http://www.systemical.com/ "Home")

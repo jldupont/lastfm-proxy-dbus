@@ -7,10 +7,10 @@ APP_ICON = "lastfm-proxy-dbus"
 ICON_PATH="/usr/share/icons/"
 ICON_FILE=APP_NAME+".png"
 LOG_PATH="~/"+APP_NAME+".log"
-DB_PATH ="~/"+APP_NAME+".sqlite"
+#DB_PATH ="~/"+APP_NAME+".sqlite"
 HELP_URL="http://www.systemical.com/doc/opensource/"+APP_NAME
-TIME_BASE=250  ##milliseconds
-TICKS_SECOND=1000/TIME_BASE
+#TIME_BASE=250  ##milliseconds
+#TICKS_SECOND=1000/TIME_BASE
 
 
 import os
@@ -32,6 +32,7 @@ if os.path.exists(ppkg):
 
 from Tkinter import * #@UnusedWildImport
 from Queue import Queue, Empty
+import webbrowser
         
 from   app.system.tbase import mdispatch
 import app.system.mswitch as mswitch
@@ -61,6 +62,9 @@ class App(Frame):
         
         self.mbox=Message(self.master, borderwidth=2, relief=GROOVE, aspect=1, width=250)
         self.mbox.grid(row=6, sticky=E+W+N+S)
+        
+        self.hbutton=Button(self.master, text="Help", command=self.do_help)
+        self.hbutton.grid(row=7)
 
         self.master.grid_columnconfigure(0, weight=1)
         self.master.grid_columnconfigure(1, weight=1)
@@ -104,6 +108,9 @@ class App(Frame):
     ## --------------------------------------------------------------
     def setLoop(self, loop):
         self.loop=loop
+    
+    def do_help(self):
+        webbrowser.open(HELP_URL)
     
     def OnHide(self):
         self.winfo_toplevel().withdraw()
@@ -224,7 +231,10 @@ class App(Frame):
 from app.agents.tray import TrayAgent
 _ta=TrayAgent(APP_NAME, ICON_PATH, ICON_FILE)
 
-import app.agents.logger    #@UnusedImport        
+from app.agents.logger import LoggerAgent
+_la=LoggerAgent(APP_NAME, LOG_PATH)
+_la.start()
+        
 import app.agents.fetcher   #@UnusedImport
 import app.agents.user      #@UnusedImport
 import app.agents.dbwriter  #@UnusedImport
