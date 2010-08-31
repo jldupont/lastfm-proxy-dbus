@@ -60,19 +60,13 @@ class App(Frame):
         self.luser.grid(row=0, column=0)
         self.euser.grid(row=0, column=1)
         
-        self.mbox=Message(self.master, borderwidth=2, relief=GROOVE, aspect=1, width=250)
-        self.mbox.grid(row=6, sticky=E+W+N+S)
-        
-        self.hbutton=Button(self.master, text="Help", command=self.do_help)
-        self.hbutton.grid(row=7)
-
-        self.master.grid_columnconfigure(0, weight=1)
-        self.master.grid_columnconfigure(1, weight=1)
-        self.master.grid_columnconfigure(2, weight=1)
+        #self.master.grid_columnconfigure(0, weight=1)
+        #self.master.grid_columnconfigure(1, weight=1)
+        #self.master.grid_columnconfigure(2, weight=1)
      
-        self.master.grid_rowconfigure(0,    weight=1)
-        self.master.grid_rowconfigure(1,    weight=1)
-        self.master.grid_rowconfigure(2,    weight=1)
+        #self.master.grid_rowconfigure(0,    weight=1)
+        #self.master.grid_rowconfigure(1,    weight=1)
+        #self.master.grid_rowconfigure(2,    weight=1)
         
         self.dbCountLabel=Label(self, text="Db Recent Tracks:")
         self.dbCountEntry=Label(self, text="", width=20, relief=GROOVE, borderwidth=2)
@@ -98,6 +92,15 @@ class App(Frame):
         self.uniqueTracksCountLabel.grid(row=5, column=0)
         self.uniqueTracksCountEntry.grid(row=5, column=1)
 
+        self.mbox=Message(self, borderwidth=2, relief=GROOVE, aspect=1)#, width=250)
+        self.mbox.grid(row=6, column=0, sticky=E+W+N+S, columnspan=2)
+        
+        self.hbutton=Button(self, text="Help", command=self.do_help)
+        self.hbutton.grid(row=7, column=0)
+
+        self.hAuthorize=Button(self, text="Authorize", command=self.do_authorize)
+        self.hAuthorize.grid(row=7, column=1)
+
         
         self.master.title("Last.fm Proxy DBus")
         
@@ -106,6 +109,9 @@ class App(Frame):
         self.userMsgTimeout=0
         
     ## --------------------------------------------------------------
+    def do_authorize(self):
+        print "Authorize!"
+    
     def setLoop(self, loop):
         self.loop=loop
     
@@ -252,7 +258,7 @@ def refreshTkinter():
     app.update()
     return True
     
-gobject.timeout_add(250, refreshTkinter)
+gobject.timeout_add(100, refreshTkinter)
 loop = gobject.MainLoop()
 
 app.setLoop(loop)
