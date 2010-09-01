@@ -22,7 +22,7 @@ class TesterAgent(AgentThreadedBase):
     def h_tick(self, count):
 
         if (count % self.INTERVAL)==0:
-            self.pub("app_state_toggle", None)
+            self.pub("app_state_toggle")
         
         
 
