@@ -25,7 +25,7 @@ __all__=[]
 
 class UpdaterAgent(AgentThreadedBase):
     
-    INTERVAL=4*15
+    INTERVAL=10*15
     
     def __init__(self):
         """

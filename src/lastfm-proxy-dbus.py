@@ -6,6 +6,7 @@ APP_NAME="lastfm-proxy-dbus"
 APP_ICON = "lastfm-proxy-dbus"
 ICON_PATH="/usr/share/icons/"
 ICON_FILE=APP_NAME+".png"
+ICON_FILE_WARNING=APP_NAME+"-warning.png"
 LOG_PATH="~/"+APP_NAME+".log"
 #DB_PATH ="~/"+APP_NAME+".sqlite"
 HELP_URL="http://www.systemical.com/doc/opensource/"+APP_NAME
@@ -93,7 +94,7 @@ class App(Frame):
         self.uniqueTracksCountEntry.grid(row=5, column=1)
 
         self.mbox=Message(self, borderwidth=2, relief=GROOVE, aspect=1)#, width=250)
-        self.mbox.grid(row=6, column=0, sticky=E+W+N+S, columnspan=2)
+        self.mbox.grid(row=6, column=0, sticky=E+W, columnspan=2)
         
         self.hbutton=Button(self, text="Help", command=self.do_help)
         self.hbutton.grid(row=7, column=0)
@@ -235,7 +236,8 @@ class App(Frame):
 ## -------------------------------------------------------------------
 
 from app.agents.tray import TrayAgent
-_ta=TrayAgent(APP_NAME, ICON_PATH, ICON_FILE)
+_ta=TrayAgent(APP_NAME, ICON_PATH, ICON_FILE, ICON_FILE_WARNING)
+_ta.start()
 
 from app.agents.logger import LoggerAgent
 _la=LoggerAgent(APP_NAME, LOG_PATH)
@@ -249,6 +251,7 @@ import app.agents.updater   #@UnusedImport
 import app.agents.informer  #@UnusedImport
 import app.agents.tracker   #@UnusedImport
 import app.agents.adbus     #@UnusedImport
+import app.agents.tester    #@UnusedImport
 
 app=App()
 app.main()

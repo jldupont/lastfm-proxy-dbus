@@ -26,7 +26,7 @@ from app.lastfmparsers.user_getrecenttracks import parse
 __all__=[]
 
 ## 100ms / tick
-INTERVAL_TICKS=4*60*5
+INTERVAL_TICKS=10*60*5
 
 
 class FetcherAgent(AgentThreadedBase):

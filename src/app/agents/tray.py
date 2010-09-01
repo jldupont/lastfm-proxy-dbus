@@ -10,6 +10,7 @@ import os
 import gtk #@UnusedImport
 import gtk.gdk
 import app.system.mswitch as mswitch
+from app.system.tbase import AgentThreadedBase
 
 class AppPopupMenu:
     def __init__(self, app):
@@ -47,8 +48,9 @@ class AppIcon(object):
 
 
 
-class TrayAgent(object):
-    def __init__(self, app_name, icon_path, icon_file):
+
+class TrayObject(object):
+    def __init__(self, app_name, icon_path, icon_file, icon_file_warning):
         
         self.app_name=app_name
         self.popup_menu=AppPopupMenu(self)
@@ -59,8 +61,21 @@ class TrayAgent(object):
         #self.tray.connect('activate', self.do_popup_menu_activate)
         self.tray.connect('popup-menu', self.do_popup_menu)
         
-        scaled_buf = AppIcon(icon_path, icon_file).getIconPixBuf()
-        self.tray.set_from_pixbuf( scaled_buf )
+        self.icon_scaled_buf = AppIcon(icon_path, icon_file).getIconPixBuf()
+        self.icon_warning_scaled_buf = AppIcon(icon_path, icon_file_warning).getIconPixBuf()
+        
+    def set_app_normal(self):
+        """
+        When the application is in 'normal' condition
+        """
+        self.tray.set_from_pixbuf( self.icon_scaled_buf )
+        
+    def set_app_warning(self):
+        """
+        When the application experiences a 'warning' condition
+        """
+        self.tray.set_from_pixbuf( self.icon_warning_scaled_buf )
+        
         
     def do_popup_menu_activate(self, statusIcon):
         timestamp=gtk.get_current_event_time()
@@ -77,4 +92,33 @@ class TrayAgent(object):
         mswitch.publish(self, "__quit__")
 
 
-#_app=App()
+class TrayAgent(AgentThreadedBase):
+    def __init__(self, app_name, icon_path, icon_file, icon_file_warning):
+        AgentThreadedBase.__init__(self)
+
+        self.tray=TrayObject(app_name, icon_path, icon_file, icon_file_warning)
+        
+        self.state="normal"        
+        self.h_app_normal()
+                
+    def h_app_normal(self, *_):
+        """
+        When the application is in 'normal' condition
+        """
+        self.state="normal"
+        self.tray.set_app_normal()
+        
+    def h_app_warning(self, *_):
+        """
+        When the application experiences a 'warning' condition
+        """
+        self.state="warning"
+        self.tray.set_app_warning()
+        
+    def h_app_state_toggle(self, *_):
+        #print "toggle: state: %s" % self.state
+        if self.state=="normal":
+            self.h_app_warning()
+        else:
+            self.h_app_normal()
+

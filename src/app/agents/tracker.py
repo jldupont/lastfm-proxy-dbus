@@ -25,7 +25,7 @@ __all__=[]
 
 class TrackerAgent(AgentThreadedBase):
     
-    INTERVAL = 4*5 ##seconds
+    INTERVAL = 10*5 ##seconds
     
     def __init__(self):
         """
