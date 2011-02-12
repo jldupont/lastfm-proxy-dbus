@@ -14,7 +14,7 @@ def getDbPath():
     if isOSX():
         path="~/Library/Preferences/lastfm-proxy-dbus.sqlite"
     else:
-        path="~/.config/lastfm-proxy-dbus.sqlite"
+        path="~/lastfm-proxy-dbus.sqlite"
 
     return os.path.expanduser(path)
 
