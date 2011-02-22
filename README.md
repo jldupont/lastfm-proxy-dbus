@@ -75,5 +75,6 @@ History
  - v1.76: fixed issue with "userplaycount==0" field
  - v1.80: added help button and tray icon
  - v2.01: changed location of sqlite database to ~/
+ - v2.02: minor UI improvements
  
 [Home](http://www.systemical.com/ "Home")

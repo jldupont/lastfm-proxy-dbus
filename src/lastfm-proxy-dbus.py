@@ -93,14 +93,17 @@ class App(Frame):
         self.uniqueTracksCountLabel.grid(row=5, column=0)
         self.uniqueTracksCountEntry.grid(row=5, column=1)
 
-        self.mbox=Message(self, borderwidth=2, relief=GROOVE, aspect=1)#, width=250)
+        self.mbox=Message(self, borderwidth=2, relief=GROOVE, aspect=350)#, width=250)
         self.mbox.grid(row=6, column=0, sticky=E+W, columnspan=2)
+        #self.mbox.pack()
+        
+        #self.mbox.config(text="")
         
         self.hbutton=Button(self, text="Help", command=self.do_help)
-        self.hbutton.grid(row=7, column=0)
+        self.hbutton.grid(row=7, column=0, columnspan=2)
 
-        self.hAuthorize=Button(self, text="Authorize", command=self.do_authorize)
-        self.hAuthorize.grid(row=7, column=1)
+        #self.hAuthorize=Button(self, text="Authorize", command=self.do_authorize)
+        #self.hAuthorize.grid(row=7, column=1)
 
         
         self.master.title("Last.fm Proxy DBus")
